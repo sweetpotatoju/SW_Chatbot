@@ -4,7 +4,16 @@
     <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredIdentifiers">
         <list>
+<<<<<<< HEAD
           <option value="Sw_consulting_chatbot.main.views.notice_view.message" />
+=======
+          <option value="zero.data.IndexLoader" />
+          <option value="zero.data" />
+          <option value="list.info" />
+          <option value="test5.*" />
+          <option value="test.*" />
+          <option value="Codas.w" />
+>>>>>>> 62ffb3f4a349cbf30c870e2140d0944eb8952f8a
         </list>
       </option>
     </inspection_tool>
