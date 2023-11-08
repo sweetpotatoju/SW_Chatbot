@@ -5,6 +5,7 @@
 
     body {
         text-align : center;
+
     }
 
     /* CSS 스타일로 스크롤 가능한 텍스트 박스 스타일 정의 */
@@ -55,7 +56,7 @@
 <body>
     <h1>SW_Chatbot</h1>
     <div class="scroll-box">
-        <div id="chat-container"></div>
+        <div id="chat-container" ></div>
         <div id="chat-messages" class="question-text"></div>
 
         <div id="button-container"></div>
@@ -75,6 +76,7 @@
                 var responseMessage = userMessage + '에 대한 응답';
                 chatMessages.innerHTML += '<p>질문 내용: ' + userMessage + '</p>';
                 chatMessages.innerHTML += '<p>답변: ' + responseMessage + '</p>';
+
             });
         }
 
@@ -82,6 +84,7 @@
         addKeywordButton('키워드 2');
         addKeywordButton('키워드 3');
         addKeywordButton('키워드 4');
+
         </script>
     </div>
 </body>

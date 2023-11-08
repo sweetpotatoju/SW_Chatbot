@@ -4,9 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .models import Notice
 
-def notice_view(request):
-    notices = Notice.objects.all().order_by('-pub_date')
-    return render(request, 'notice/notice.html', {'공지 내용': notices})
+def mainpage(request):
+    return render(request, 'userpage/userpage.html')
 
 def keyboard(request):
     return JsonResponse({

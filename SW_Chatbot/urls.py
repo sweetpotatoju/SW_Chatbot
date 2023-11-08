@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main.views import keyboard, message, notice_view
+from main.views import keyboard, message, mainpage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('keyboard/', keyboard, name='keyboard'),
     path('message/', message, name='message'),
-    path('', notice_view, name='notice'),
+    path('', mainpage, name='userpage'),
 
 ]
