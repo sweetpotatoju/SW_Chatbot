@@ -1,91 +1,68 @@
-<style>
-    title {
-        text-align : center;
-    }
-
-    body {
-        text-align : center;
-
-    }
-
-    /* CSS 스타일로 스크롤 가능한 텍스트 박스 스타일 정의 */
-    .scroll-box {
-        border: 3px solid #000;
-        width: 600px; /* 너비 조정 (가운데 정렬을 위해 줄임) */
-        height: 400px;
-        overflow: auto;
-        margin: 0 auto; /* 수평 가운데 정렬을 위해 추가 */
-        padding: 10px;
-        border-radius: 10px;
-    }
-
-    .chat-container {
-        display: flex;
-        flex-direction: column-reverse; /* 새로운 채팅이 위로 올라오도록 설정 */
-    }
-
-
-    /* 버튼 스타일 정의 */
-    .keyword-button {
-    position: absoluted; /* 절대 위치 설정 */
-    bottom: 0; /* 스크롤 박스 내 하단에 위치 */
-    background: #fff00;
-    padding: 5px;
-    margin: 5px; /* 각 버튼 사이의 여백 추가 */
-    left: 0; /* 가장 왼쪽으로 정렬 */
-    border-radius : 10px; /*모서리 둥글게 하기*/
-    }
-
-    /* 답변 텍스트 왼쪽 정렬 스타일 */
-    .response-text {
-        text-align: right;
-    }
-
-    /* 질문 텍스트 왼쪽 정렬 스타일 */
-    .question-text {
-        text-align: left;
-    }
-
-</style>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>학과상담채팅봇</title>
-</head>
-<body>
-    <h1>SW_Chatbot</h1>
-    <div class="scroll-box">
-        <div id="chat-container" ></div>
-        <div id="chat-messages" class="question-text"></div>
-
-        <div id="button-container"></div>
-        <script>
-            //버튼 동적 생성
-        function addKeywordButton(text, id) {
-            const button = document.createElement('button');
-            button.className = 'keyword-button';
-            button.textContent = text;
-            button.id = id; // 버튼에 id 추가
-            document.body.appendChild(button); // body에 버튼 추가
-
-            // 버튼 클릭 이벤트 바인딩
-            button.addEventListener('click', function() {
-                var userMessage = text;
-                var chatMessages = document.getElementById('chat-messages');
-                var responseMessage = userMessage + '에 대한 응답';
-                chatMessages.innerHTML += '<p>질문 내용: ' + userMessage + '</p>';
-                chatMessages.innerHTML += '<p>답변: ' + responseMessage + '</p>';
-
-            });
+    <title>소프트웨어공학과채팅봇</title>
+    <style>
+        body {
+            text-align: center;
         }
 
-        addKeywordButton('키워드 1');
-        addKeywordButton('키워드 2');
-        addKeywordButton('키워드 3');
-        addKeywordButton('키워드 4');
+        .scroll-box {
+            border: 3px solid #000;
+            width: 800px; /* 너비 조정 (가운데 정렬을 위해 줄임) */
+            height: 500px;
+            overflow: auto;
+            margin: 10px auto; /* 수평 가운데 정렬을 위해 추가 */
+            padding: 10px;
+            border-radius: 10px;
+        }
 
-        </script>
+        .input-container input[type="text"] {
+            width: 65%;
+            height : 30px;
+
+        }
+
+        .input-container input[type="password"] {
+            width: 10%;
+            height : 30px;
+        }
+
+        .input-container button {
+            width : 10%;
+            height : 35px;
+        }
+
+        .responseMessage {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>학과상담채팅봇</h1>
+    <div class="scroll-box" id ="chat-container">
+         <div class="responseMessage" id="response-container"></div>
+
     </div>
+    <div class="input-container">
+        <form>
+            <input type="text" id="question_text"  class="input-container" placeholder="질문을 입력하세요" required>
+            <input type="password" id="password" class="input-container" placeholder="password" required>
+            <button id="submit_btn" class="button">등록</button>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('submit_btn').addEventListener('click', function(event) {
+
+            var userquestion = document.getElementById('question_text').value;
+            var response = document.getElementById('response-container');
+            response.innerHTML += '<p> 질문 내용: '+ userquestion + '</p>';
+            event.preventDefault();
+        });
+    </script>
 </body>
 </html>
