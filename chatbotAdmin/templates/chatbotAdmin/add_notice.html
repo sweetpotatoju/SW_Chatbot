@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 공지 추가</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            width: 60%; /* 입력 양식의 폭을 조정 */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px; /* "공지 추가" 텍스트 아래 간격 추가 */
+        }
+
+        textarea {
+            width: 100%; /* 텍스트 영역의 폭을 100%로 설정하여 전체 너비를 사용 */
+            height: 200px; /* 원하는 높이로 조정 */
+            display: block; /* 텍스트 영역을 블록 요소로 설정하여 아래로 쌓이게 함 */
+            margin-bottom: 10px; /* 입력창과 간격을 두기 위한 마진 설정 */
+        }
+
+        input[type="submit"] {
+            width: 100%; /* 버튼의 폭을 100%로 설정하여 전체 너비를 사용 */
+        }
+
+        .cancel-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ccc;
+        color: #000;
+        text-decoration: none;
+        border: 1px solid #999;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h1>공지 추가</h1>
+        <textarea name="notice_text" placeholder="공지 내용"></textarea>
+        <input type="submit" value="추가">
+        <a href="{% url 'management' %}" class="cancel-button">취소</a>
+    </form>
+</body>
+</html>
