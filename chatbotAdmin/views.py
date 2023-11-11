@@ -27,3 +27,10 @@ def add_notice(request):
         # DB 연결 필요(버튼 선택 시 아무 행동 x)
         return render(request, 'chatbotAdmin/add_notice.html')
     return render(request, 'chatbotAdmin/add_notice.html')
+
+# 질문 답변 페이지
+def add_question_answer(request):
+    if request.method == "POST":
+        # DB 연결 필요(현재 버튼 선택 시 아무 행동 x)
+        return render(request, 'chatbotAdmin/add_question_answer.html')
+    return render(request, 'chatbotAdmin/add_question_answer.html')
