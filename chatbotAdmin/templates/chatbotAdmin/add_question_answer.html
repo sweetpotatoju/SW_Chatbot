@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 질문 답변 추가</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="question_text" placeholder="질문"></textarea>
+        <textarea name="answer_text" placeholder="답변"></textarea>
+        <input type="submit" value="추가">
+    </form>
+</body>
+</html>
