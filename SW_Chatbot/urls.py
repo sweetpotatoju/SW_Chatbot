@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import chatbotAdmin.views
+
 urlpatterns = [
+    path('admin_page/', chatbotAdmin.views.admin_page, name='admin_page'),
     path('admin/', admin.site.urls),
 ]
