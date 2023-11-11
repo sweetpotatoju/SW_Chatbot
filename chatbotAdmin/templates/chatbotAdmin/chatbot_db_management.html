@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 DB 관리</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <select name="db_type">
+            <option value="공지">공지</option>
+            <option value="질문 답변">질문 답변</option>
+        </select>
+        <input type="submit" value="선택">
+    </form>
+</body>
+</html>
