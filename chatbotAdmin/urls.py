@@ -6,4 +6,5 @@ app_name = 'chatbotAdmin'
 urlpatterns = [
     path('admin_page/', views.admin_page, name='admin_page'),
     path('management/', views.management, name='management'),
+    path('add_notice/', views.add_notice, name='add_notice'),
 ]
