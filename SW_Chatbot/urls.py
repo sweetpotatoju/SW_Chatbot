@@ -21,5 +21,6 @@ import chatbotAdmin.views
 
 urlpatterns = [
     path('admin_page/', chatbotAdmin.views.admin_page, name='admin_page'),
+    path('management/', chatbotAdmin.views.management, name='management'),
     path('admin/', admin.site.urls),
 ]
