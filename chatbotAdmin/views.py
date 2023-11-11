@@ -16,3 +16,7 @@ def admin_page(request):
             return render(request, 'chatbotAdmin/admin_page.html')
 
     return render(request, 'chatbotAdmin/admin_page.html')
+
+# 비밀번호 해제 후, 메인 화면
+def management(request):
+    return render(request, 'chatbotAdmin/management.html')
