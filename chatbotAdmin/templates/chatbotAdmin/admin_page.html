@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>소프트웨어공학과 챗봇 관리</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column; /* 수직 중앙 정렬을 위해 추가 */
+        }
+
+        #password-form {
+            display: inline-block;
+            text-align: center;
+        }
+
+        #password {
+            width: 200px; /* 비밀번호 입력란의 너비 조절 */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* 제목과 입력 폼 사이의 간격 조절 */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>소프트웨어공학과 상담 챗봇 관리</h1> <!-- 원하는 텍스트 추가 -->
+
+    <form method="post" id="password-form">
+        {% csrf_token %}
+        <input type="password" name="password" id="password" placeholder="비밀번호">
+        <input type="submit" value="로그인">
+    </form>
+
+</body>
+</html>
