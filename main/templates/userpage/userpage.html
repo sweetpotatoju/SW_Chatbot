@@ -39,6 +39,7 @@
         }
 
     </style>
+    <script src="userpage.js"></script>
 </head>
 <body>
     <h1>학과상담채팅봇</h1>
@@ -49,10 +50,33 @@
     <div class="input-container">
         <form>
             <input type="text" id="question_text"  class="input-container" placeholder="질문을 입력하세요" required>
-            <input type="password" id="password" class="input-container" placeholder="password" required>
+<!--            <input type="password" id="password" class="input-container" placeholder="password" required>-->
             <button id="submit_btn" class="button">등록</button>
         </form>
     </div>
-<script src = "userpage.js"></script>
+
+<script>
+    //버튼 누르면 질문 내용과 답변 내용 표시
+    document.getElementById('submit_btn').addEventListener('click', function(event) {
+
+    //질문 내용 작성
+    var userquestion = document.getElementById('question_text').value;
+    var response = document.getElementById('response-container');
+
+    var questionParagraph = document.createElement('p');
+    var replyParagraph = document.createElement('R');
+    questionParagraph.textContent = '질문 내용: ' + userquestion;
+    replyParagraph.textContent = '답변 내용: ';
+
+    response.appendChild(questionParagraph);
+    response.appendChild(replyParagraph);
+
+
+    event.preventDefault();
+});
+
+
+</script>
+
 </body>
 </html>
