@@ -19,18 +19,18 @@
         }
 
         .input-container input[type="text"] {
-            width: 65%;
+            width: 600px;
             height : 30px;
 
         }
 
         .input-container input[type="password"] {
-            width: 10%;
+            width: 100px;
             height : 30px;
         }
 
         .input-container button {
-            width : 10%;
+            width : 100px;
             height : 35px;
         }
 
@@ -51,18 +51,8 @@
             <input type="text" id="question_text"  class="input-container" placeholder="질문을 입력하세요" required>
             <input type="password" id="password" class="input-container" placeholder="password" required>
             <button id="submit_btn" class="button">등록</button>
-            </p>
         </form>
     </div>
-
-    <script>
-        document.getElementById('submit_btn').addEventListener('click', function(event) {
-
-            var userquestion = document.getElementById('question_text').value;
-            var response = document.getElementById('response-container');
-            response.innerHTML += '<p> 질문 내용: '+ userquestion + '</p>';
-            event.preventDefault();
-        });
-    </script>
+<script src = "userpage.js"></script>
 </body>
 </html>
