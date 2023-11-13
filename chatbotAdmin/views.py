@@ -22,7 +22,8 @@ def management(request):
 # 공지 추가 페이지
 def add_notice(request):
     if request.method == "POST":
-        # DB 연결 필요(버튼 선택 시 아무 행동 x)
+        # DB 연결 필요(현재 버튼 선택 시 아무 행동 x)
+        # 추가 버튼 누르면 DB에 버튼 누른 시간과 입력창 내용 저장 구현 필요
         return render(request, 'chatbotAdmin/add_notice.html')
     return render(request, 'chatbotAdmin/add_notice.html')
 
@@ -30,6 +31,7 @@ def add_notice(request):
 def add_question_answer(request):
     if request.method == "POST":
         # DB 연결 필요(현재 버튼 선택 시 아무 행동 x)
+        # DB에 있는 질문 표형식으로 로드, 선택해서 답변 추가, 추가 버튼 누르면 입력창 내용 저장 구현 필요
         return render(request, 'chatbotAdmin/add_question_answer.html')
     return render(request, 'chatbotAdmin/add_question_answer.html')
 
@@ -44,4 +46,5 @@ def chatbot_db_management(request):
         elif db_type == '질문 답변':
             # 아무 작업도 수행하지 않고 현재 페이지로 리디렉션
             return render(request, 'chatbotAdmin/chatbot_db_management.html')
+
     return render(request, 'chatbotAdmin/chatbot_db_management.html')
