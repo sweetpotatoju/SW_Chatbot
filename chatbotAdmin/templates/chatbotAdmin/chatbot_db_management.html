@@ -15,6 +15,13 @@
         select {
             margin-right: 10px; /* 선택 버튼 오른쪽에 간격을 주기 위한 마진 설정 */
         }
+
+        /* 추가된 CSS 스타일: 링크 스타일 지정 */
+        .details-link {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -41,6 +48,7 @@
                     <th>제목</th>
                     <th>내용</th>
                     <th>작성일</th>
+                    <th>상세 보기</th> <!-- 새로운 열 추가 -->
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +57,8 @@
                         <td>{{ notice.title }}</td>
                         <td>{{ notice.content }}</td>
                         <td>{{ notice.created_at }}</td>
+                        <!-- 상세 보기 링크 추가 -->
+                        <td><a href="{% url 'notice_detail' notice.id %}" class="details-link">상세 보기</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

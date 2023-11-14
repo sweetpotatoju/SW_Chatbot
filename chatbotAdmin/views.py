@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NoticeForm
 from .models import Notice
 # Create your views here.
@@ -55,3 +55,8 @@ def chatbot_db_management(request):
             return render(request, 'chatbotAdmin/chatbot_db_management.html')
 
     return render(request, 'chatbotAdmin/chatbot_db_management.html')
+
+# DB 관리 페이지 공지 상세 보기
+def notice_detail(request, pk):
+    notice = get_object_or_404(Notice, pk=pk)
+    return render(request, 'chatbotAdmin/notice_detail.html', {'notice': notice})

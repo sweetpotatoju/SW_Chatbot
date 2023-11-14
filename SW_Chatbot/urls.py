@@ -25,5 +25,6 @@ urlpatterns = [
     path('add_notice/', chatbotAdmin.views.add_notice, name='add_notice'),
     path('add_question_answer/', chatbotAdmin.views.add_question_answer, name='add_question_answer'),
     path('chatbot_db_management/', chatbotAdmin.views.chatbot_db_management, name='chatbot_db_management'),
+    path('notice_detail/<int:pk>/', chatbotAdmin.views.notice_detail, name='notice_detail'),
     path('admin/', admin.site.urls),
 ]
