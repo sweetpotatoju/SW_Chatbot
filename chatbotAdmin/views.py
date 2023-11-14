@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import NoticeForm
-from .models import Notice
+from .forms import NoticeForm, QATableForm
+from .models import Notice, QATable
 # Create your views here.
 
 # 비밀번호 페이지
@@ -37,22 +37,33 @@ def add_notice(request):
 # 질문 답변 페이지
 def add_question_answer(request):
     if request.method == "POST":
-        # DB 연결 필요(현재 버튼 선택 시 아무 행동 x)
-        # DB에 있는 질문 표형식으로 로드, 선택해서 답변 추가, 추가 버튼 누르면 입력창 내용 저장 구현 필요
-        return render(request, 'chatbotAdmin/add_question_answer.html')
-    return render(request, 'chatbotAdmin/add_question_answer.html')
+        form = QATableForm(request.POST)
+        if form.is_valid():
+            # 폼에서 데이터 가져오기
+            instance = form.save(commit=False)
 
+            # answer_status 값을 'Y'로 설정
+            instance.question_content.answer_status = 'Y'
+            instance.question_content.save()
+
+            instance.save()
+
+            return redirect('add_question_answer')  # 저장 후 폼 초기화
+    else:
+        form = QATableForm()
+
+    return render(request, 'chatbotAdmin/add_question_answer.html', {'form': form})
 
 # DB 관리 페이지
 def chatbot_db_management(request):
     if request.method == "POST":
         db_type = request.POST.get('db_type')
         if db_type == '공지':
-            notices = Notice.objects.all()
+            notices = Notice.objects.order_by('-created_at')
             return render(request, 'chatbotAdmin/chatbot_db_management.html', {'notices': notices})
         elif db_type == '질문 답변':
-            # 아무 작업도 수행하지 않고 현재 페이지로 리디렉션
-            return render(request, 'chatbotAdmin/chatbot_db_management.html')
+            qatables = QATable.objects.order_by('-created_at')
+            return render(request, 'chatbotAdmin/chatbot_db_management.html', {'qatables': qatables})
 
     return render(request, 'chatbotAdmin/chatbot_db_management.html')
 
@@ -60,3 +71,8 @@ def chatbot_db_management(request):
 def notice_detail(request, pk):
     notice = get_object_or_404(Notice, pk=pk)
     return render(request, 'chatbotAdmin/notice_detail.html', {'notice': notice})
+
+# DB 관리 페이지 공지 상세 보기
+def qatalbe_detail(request, pk):
+    qatable = get_object_or_404(QATable, pk=pk)
+    return render(request, 'chatbotAdmin/qatable_detail.html', {'qatable': qatable})

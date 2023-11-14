@@ -42,6 +42,7 @@
     </div>
 
     {% if notices %}
+        <h3>공지 데이터</h3>
         <table>
             <thead>
                 <tr>
@@ -64,5 +65,34 @@
             </tbody>
         </table>
     {% endif %}
+
+    {% if qatables %}
+        <h3>질문 답변 데이터</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question Content</th>
+                    <th>Question Summary</th>
+                    <th>Answer Content</th>
+                    <th>Created At</th>
+                    <th>상세 보기</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for qatable in qatables %}
+                    <tr>
+                        <td>{{ qatable.question_content }}</td>
+                        <td>{{ qatable.question_summary }}</td>
+                        <td>{{ qatable.answer_content }}</td>
+                        <td>{{ qatable.created_at }}</td>
+                        <!-- 상세 보기 링크 추가 -->
+                        <td><a href="{% url 'qatable_detail' qatable.id %}" class="details-link">상세 보기</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
 </body>
 </html>

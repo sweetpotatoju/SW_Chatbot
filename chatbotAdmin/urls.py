@@ -10,4 +10,5 @@ urlpatterns = [
     path('add_question_answer/', views.add_question_answer, name='add_question_answer'),
     path('chatbot_db_management/', views.chatbot_db_management, name='chatbot_db_management'),
     path('notice_detail/<int:pk>/', notice_detail, name='notice_detail'),
+    path('qatable_detail/<int:pk>/', qatable_detail, name='qatable_detail')
 ]
