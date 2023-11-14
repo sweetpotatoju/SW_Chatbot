@@ -1,9 +1,10 @@
 from django.db import models
 
-class Notice(models.Model):
-    title = models.TextField(max_length= 200)
-    content = models.TextField()
-    pub_date = models.DateTimeField(auto_now_add=True)
+# main Notice DB 모델 없애주세요!!
+# class Notice(models.Model):
+#     title = models.TextField(max_length= 200)
+#     content = models.TextField()
+#     pub_date = models.DateTimeField(auto_now_add=True)
 
 class Question(models.Model):
     ANSWER_STATUS_CHOICES = [
