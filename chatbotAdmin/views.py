@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .forms import NoticeForm
 
 # Create your views here.
 
@@ -21,10 +22,16 @@ def management(request):
 
 # 공지 추가 페이지
 def add_notice(request):
-    if request.method == "POST":
-        # DB 연결 필요(현재 버튼 선택 시 아무 행동 x)
-        # 추가 버튼 누르면 DB에 버튼 누른 시간과 입력창 내용 저장 구현 필요
-        return render(request, 'chatbotAdmin/add_notice.html')
+    if request.method == 'POST':
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            # created_at은 자동으로 현재 시간으로 설정됩니다.
+            notice.save()
+            return redirect('add_notice')
+        else:
+            print(form.errors)
+        form = NoticeForm()
     return render(request, 'chatbotAdmin/add_notice.html')
 
 # 질문 답변 페이지
