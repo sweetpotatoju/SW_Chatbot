@@ -4,8 +4,17 @@
     <option name="format" value="PLAIN" />
     <option name="myDocStringFormat" value="Plain" />
   </component>
+<<<<<<< HEAD
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="6eaf8829-71b6-4080-a4f2-251b31481e0a" />
+=======
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.9 (SW_Chatbot)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+>>>>>>> 7e62a692c71d9fc269ad9a301d87832efb5f6ad2
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

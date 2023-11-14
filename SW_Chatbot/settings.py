@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import mysetting
+
+DATABASES= mysetting.DATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = 'django-insecure-hd_y0(_%$*=l_fd)@i72i%48)bjkix*^e8mlk6v5rgwage5-_c'
+SECRET_KEY = 'django-insecure-@ivj1*1hr*s7mbrppc5-x_+1b5!es$s5pm^-_-oz*_bpws$cme'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -56,7 +59,8 @@ ROOT_URLCONF = 'SW_Chatbot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates']
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,14 +78,6 @@ WSGI_APPLICATION = 'SW_Chatbot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -109,11 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ko'
 
 TIME_ZONE = 'Asia/Seoul'
-
-LANGUAGE_CODE = 'ko'
-
-TIME_ZONE = 'UTC'
-
 
 USE_I18N = True
 
