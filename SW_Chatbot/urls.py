@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from main.views import userpage
 
 import chatbotAdmin.views
 
@@ -27,4 +28,6 @@ urlpatterns = [
     path('chatbot_db_management/', chatbotAdmin.views.chatbot_db_management, name='chatbot_db_management'),
     path('notice_detail/<int:pk>/', chatbotAdmin.views.notice_detail, name='notice_detail'),
     path('admin/', admin.site.urls),
+    path('', userpage, name='userpage'),
+
 ]
