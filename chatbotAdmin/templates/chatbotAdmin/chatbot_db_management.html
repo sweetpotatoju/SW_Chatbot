@@ -1,17 +1,58 @@
+<!-- chatbot_db_management.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>챗봇 DB 관리</title>
+    <style>
+        /* 추가된 CSS 스타일 */
+        .form-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        select {
+            margin-right: 10px; /* 선택 버튼 오른쪽에 간격을 주기 위한 마진 설정 */
+        }
+    </style>
 </head>
 <body>
-    <form method="post">
-        {% csrf_token %}
-        <select name="db_type">
-            <option value="공지">공지</option>
-            <option value="질문 답변">질문 답변</option>
-        </select>
-        <input type="submit" value="선택">
-    </form>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <select name="db_type">
+                <option value="공지">공지</option>
+                <option value="질문 답변">질문 답변</option>
+            </select>
+            <input type="submit" value="선택">
+        </form>
+
+        <!-- 뒤로가기 버튼을 선택 버튼 옆에 배치 -->
+        <form method="get" action="{% url 'management' %}">
+            <input type="submit" value="뒤로가기">
+        </form>
+    </div>
+
+    {% if notices %}
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for notice in notices %}
+                    <tr>
+                        <td>{{ notice.title }}</td>
+                        <td>{{ notice.content }}</td>
+                        <td>{{ notice.created_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </body>
 </html>

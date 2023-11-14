@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import NoticeForm
-
+from .models import Notice
 # Create your views here.
 
 # 비밀번호 페이지
@@ -48,8 +48,8 @@ def chatbot_db_management(request):
     if request.method == "POST":
         db_type = request.POST.get('db_type')
         if db_type == '공지':
-            # 아무 작업도 수행하지 않고 현재 페이지로 리디렉션
-            return render(request, 'chatbotAdmin/chatbot_db_management.html')
+            notices = Notice.objects.all()
+            return render(request, 'chatbotAdmin/chatbot_db_management.html', {'notices': notices})
         elif db_type == '질문 답변':
             # 아무 작업도 수행하지 않고 현재 페이지로 리디렉션
             return render(request, 'chatbotAdmin/chatbot_db_management.html')
