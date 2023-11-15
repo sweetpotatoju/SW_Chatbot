@@ -1,14 +1,17 @@
+import os
+
 import tensorflow as tf
 import tensorflow_datasets as tfds
 
 
 def build_and_tokenize_corpus(questions, answers, max_length=40, target_vocab_size=2 ** 13):
+
     tokenizer = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
-        questions + answers, target_vocab_size=target_vocab_size)
+            questions + answers, target_vocab_size=target_vocab_size)
+    print(tokenizer)
 
     START_TOKEN, END_TOKEN = [tokenizer.vocab_size], [tokenizer.vocab_size + 1]
     VOCAB_SIZE = tokenizer.vocab_size + 2
-    print(VOCAB_SIZE)
 
     print('START_TOKEN의 번호 :', [tokenizer.vocab_size])
     print('END_TOKEN의 번호 :', [tokenizer.vocab_size + 1])
@@ -36,7 +39,11 @@ def build_and_tokenize_corpus(questions, answers, max_length=40, target_vocab_si
         return tokenized_inputs, tokenized_outputs
 
     questions, answers = tokenize_and_filter(questions, answers)
+    print('질문 데이터의 크기(shape) :', questions.shape)
+    print('답변 데이터의 크기(shape) :', answers.shape)
+    print(questions[0])
+    print(answers[0])
 
-    return questions, answers, VOCAB_SIZE
+    return questions, answers, VOCAB_SIZE, START_TOKEN, END_TOKEN, tokenizer
 
 

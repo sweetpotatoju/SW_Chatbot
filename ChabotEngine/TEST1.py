@@ -3,16 +3,14 @@ from Dataset_bot import *
 from ChabotEngine.transforemer import *
 from ChabotEngine.preprocess import *
 from ChabotEngine.train import *
+from ChabotEngine.predict import *
 
-#기본 환경 설정
+# 기본 환경 설정
 MAX_SAMPLES = 50000
-
 BATCH_SIZE = 64
 BUFFER_SIZE = 20000
 
-
 print(MAX_SAMPLES)
-print(MAX_LENGTH)
 print("-----------------------------------------------------")
 
 questions, answers = load_conversations(train_data['Q'], train_data['A'])
@@ -25,11 +23,11 @@ print('전처리 후의 22번째 답변 샘플: {}'.format(answers[21]))
 print("-----------------------------------------------------")
 
 # build_and_tokenize_corpus 함수 사용
-questions, answers, vocab_size = build_and_tokenize_corpus(questions, answers)
-print('단어장의 크기 :', vocab_size)
+questions, answers, vocab_size_, start_token, end_token, tokenizer_ = build_and_tokenize_corpus(questions, answers)
+
+print('단어장의 크기 :', vocab_size_)
 print('필터링 후의 샘플 개수: {}'.format(len(questions)))
 print('필터링 후의 샘플 개수: {}'.format(len(answers)))
-
 
 dataset = tf.data.Dataset.from_tensor_slices((
     {
@@ -46,41 +44,18 @@ dataset = dataset.shuffle(BUFFER_SIZE)
 dataset = dataset.batch(BATCH_SIZE)
 dataset = dataset.prefetch(tf.data.experimental.AUTOTUNE)
 
-VOCAB_SIZE = 8175
+VOCAB_SIZE = vocab_size_
 
-EPOCHS = 10
-model = build_model(VOCAB_SIZE)
+EPOCHS = 1  # 훈련 횟수 설정
+NUM_LAYERS = 6  # 인코더와 디코더의 층의 개수
+D_MODEL = 512  # 인코더와 디코더 내부의 입, 출력의 고정 차원
+NUM_HEADS = 8  # 멀티 헤드 어텐션에서의 헤드 수
+UNITS = 512  # 피드 포워드 신경망의 은닉층의 크기
+DROPOUT = 0.1  # 드롭아웃의 비율
+
+model = build_model(VOCAB_SIZE, NUM_LAYERS, D_MODEL, NUM_HEADS, UNITS, DROPOUT)
 model.fit(dataset, epochs=EPOCHS, verbose=1)
-def decoder_inference(sentence):
-    sentence = preprocess_sentence(sentence)
 
-    sentence = tf.expand_dims(
-        START_TOKEN + tokenizer.encode(sentence) + END_TOKEN, axis=0)
-
-    output_sequence = tf.expand_dims(START_TOKEN, 0)
-
-    for i in range(MAX_LENGTH):
-        predictions = model(inputs=[sentence, output_sequence], training=False)
-        predictions = predictions[:, -1:, :]
-
-        predicted_id = tf.cast(tf.argmax(predictions, axis=-1), tf.int32)
-
-        if tf.equal(predicted_id, END_TOKEN[0]):
-            break
-
-        output_sequence = tf.concat([output_sequence, predicted_id], axis=-1)
-
-    return tf.squeeze(output_sequence, axis=0)
-
-def sentence_generation(sentence):
-    prediction = decoder_inference(sentence)
-
-    predicted_sentence = tokenizer.decode(
-        [i for i in prediction if i < tokenizer.vocab_size])
-
-    print('입력 : {}'.format(sentence))
-    print('출력 : {}'.format(predicted_sentence))
-
-    return predicted_sentence
-
-sentence_generation("가장 확실한 건 뭘까?")
+# 챗봇 문장 입력 란
+input_sentence = "게임하고싶당"
+sentence_generation(input_sentence, start_token, end_token, tokenizer_, model)

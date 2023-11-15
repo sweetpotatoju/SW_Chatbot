@@ -3,6 +3,8 @@ import tensorflow as tf
 from ChabotEngine.transforemer import transformer
 
 MAX_LENGTH = 40
+
+
 def loss_function(y_true, y_pred):
     y_true = tf.reshape(y_true, shape=(-1, MAX_LENGTH - 1))
 
@@ -13,6 +15,7 @@ def loss_function(y_true, y_pred):
     loss = tf.multiply(loss, mask)
 
     return tf.reduce_mean(loss)
+
 
 class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
 
@@ -26,34 +29,29 @@ class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
 
     def __call__(self, step):
         arg1 = tf.math.rsqrt(step)
-        arg2 = step * (self.warmup_steps**-1.5)
+        arg2 = step * (self.warmup_steps ** -1.5)
 
         return tf.math.rsqrt(self.d_model) * tf.math.minimum(arg1, arg2)
+
+
 def accuracy(y_true, y_pred):
     y_true = tf.reshape(y_true, shape=(-1, MAX_LENGTH - 1))
     return tf.keras.metrics.sparse_categorical_accuracy(y_true, y_pred)
 
 
-
-def build_model(VOCAB_SIZE):
-
-    NUM_LAYERS = 6  # 인코더와 디코더의 층의 개수
-    D_MODEL = 512  # 인코더와 디코더 내부의 입, 출력의 고정 차원
-    NUM_HEADS = 8  # 멀티 헤드 어텐션에서의 헤드 수
-    UNITS = 512  # 피드 포워드 신경망의 은닉층의 크기
-    DROPOUT = 0.1  # 드롭아웃의 비율
+def build_model(vocab_size, num_layers, d_model, num_heads, units, dropout):
 
     model = transformer(
-        vocab_size=VOCAB_SIZE,
-        num_layers=NUM_LAYERS,
-        units=UNITS,
-        d_model=D_MODEL,
-        num_heads=NUM_HEADS,
-        dropout=DROPOUT)
+        vocab_size=vocab_size,
+        num_layers=num_layers,
+        units=units,
+        d_model=d_model,
+        num_heads=num_heads,
+        dropout=dropout)
 
     model.summary()
 
-    learning_rate = CustomSchedule(D_MODEL)
+    learning_rate = CustomSchedule(d_model)
 
     optimizer = tf.keras.optimizers.Adam(
         learning_rate, beta_1=0.9, beta_2=0.98, epsilon=1e-9)

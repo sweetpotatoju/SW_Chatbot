@@ -1,4 +1,6 @@
 import tensorflow as tf
+
+
 class PositionalEncoding(tf.keras.layers.Layer):
 
     def __init__(self, position, d_model):
@@ -26,6 +28,7 @@ class PositionalEncoding(tf.keras.layers.Layer):
     def call(self, inputs):
         return inputs + self.pos_encoding[:, :tf.shape(inputs)[1], :]
 
+
 def scaled_dot_product_attention(query, key, value, mask):
     matmul_qk = tf.matmul(query, key, transpose_b=True)
 
@@ -40,6 +43,7 @@ def scaled_dot_product_attention(query, key, value, mask):
     output = tf.matmul(attention_weights, value)
 
     return output
+
 
 class MultiHeadAttention(tf.keras.layers.Layer):
 
@@ -86,16 +90,19 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 
         return outputs
 
+
 def create_padding_mask(x):
     mask = tf.cast(tf.math.equal(x, 0), tf.float32)
     return mask[:, tf.newaxis, tf.newaxis, :]
 
+
 def create_look_ahead_mask(x):
     seq_len = tf.shape(x)[1]
     look_ahead_mask = 1 - \
-        tf.linalg.band_part(tf.ones((seq_len, seq_len)), -1, 0)
+                      tf.linalg.band_part(tf.ones((seq_len, seq_len)), -1, 0)
     padding_mask = create_padding_mask(x)
     return tf.maximum(look_ahead_mask, padding_mask)
+
 
 def encoder_layer(units, d_model, num_heads, dropout, name="encoder_layer"):
     inputs = tf.keras.Input(shape=(None, d_model), name="inputs")
@@ -104,11 +111,11 @@ def encoder_layer(units, d_model, num_heads, dropout, name="encoder_layer"):
 
     attention = MultiHeadAttention(
         d_model, num_heads, name="attention")({
-            'query': inputs,
-            'key': inputs,
-            'value': inputs,
-            'mask': padding_mask
-        })
+        'query': inputs,
+        'key': inputs,
+        'value': inputs,
+        'mask': padding_mask
+    })
 
     attention = tf.keras.layers.Dropout(rate=dropout)(attention)
     attention = tf.keras.layers.LayerNormalization(
@@ -123,6 +130,7 @@ def encoder_layer(units, d_model, num_heads, dropout, name="encoder_layer"):
 
     return tf.keras.Model(
         inputs=[inputs, padding_mask], outputs=outputs, name=name)
+
 
 def encoder(vocab_size,
             num_layers,
@@ -154,6 +162,7 @@ def encoder(vocab_size,
     return tf.keras.Model(
         inputs=[inputs, padding_mask], outputs=outputs, name=name)
 
+
 def decoder_layer(units, d_model, num_heads, dropout, name="decoder_layer"):
     inputs = tf.keras.Input(shape=(None, d_model), name="inputs")
     enc_outputs = tf.keras.Input(shape=(None, d_model), name="encoder_outputs")
@@ -163,22 +172,22 @@ def decoder_layer(units, d_model, num_heads, dropout, name="decoder_layer"):
 
     attention1 = MultiHeadAttention(
         d_model, num_heads, name="attention_1")(inputs={
-            'query': inputs,
-            'key': inputs,
-            'value': inputs,
-            'mask': look_ahead_mask
-        })
+        'query': inputs,
+        'key': inputs,
+        'value': inputs,
+        'mask': look_ahead_mask
+    })
 
     attention1 = tf.keras.layers.LayerNormalization(
         epsilon=1e-6)(attention1 + inputs)
 
     attention2 = MultiHeadAttention(
         d_model, num_heads, name="attention_2")(inputs={
-            'query': attention1,
-            'key': enc_outputs,
-            'value': enc_outputs,
-            'mask': padding_mask
-        })
+        'query': attention1,
+        'key': enc_outputs,
+        'value': enc_outputs,
+        'mask': padding_mask
+    })
 
     attention2 = tf.keras.layers.Dropout(rate=dropout)(attention2)
     attention2 = tf.keras.layers.LayerNormalization(
@@ -195,6 +204,7 @@ def decoder_layer(units, d_model, num_heads, dropout, name="decoder_layer"):
         inputs=[inputs, enc_outputs, look_ahead_mask, padding_mask],
         outputs=outputs,
         name=name)
+
 
 def decoder(vocab_size,
             num_layers,
