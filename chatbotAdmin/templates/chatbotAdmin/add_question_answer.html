@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 질문 답변 추가</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        .cancel-button {
+            width: 45%;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #999;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: inline-block;
+            line-height: 1; /* 텍스트 수직 가운데 정렬 */
+        }
+
+        input[type="submit"] {
+            background-color: #888;
+        }
+
+        .cancel-button {
+            background-color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <label for="{{ form.question_content.id_for_label }}">Question Content:</label>
+        {{ form.question_content }}
+        <br>
+        <label for="{{ form.question_summary.id_for_label }}">Question Summary:</label>
+        {{ form.question_summary }}
+        <br>
+        <label for="{{ form.answer_content.id_for_label }}">Answer Content:</label>
+        {{ form.answer_content }}
+        <br>
+        <input type="submit" value="추가" onclick="showCustomPopup('추가');">
+        <a href="{% url 'management' %}" class="cancel-button" onclick="showCustomPopup('뒤로가기');">뒤로가기</a>
+    </form>
+
+    <script>
+        function showCustomPopup(action) {
+            var result = confirm('정말로 ' + action + '하시겠습니까?');
+            if (!result) {
+                event.preventDefault();
+            }
+        }
+    </script>
+</body>
+
+</html>

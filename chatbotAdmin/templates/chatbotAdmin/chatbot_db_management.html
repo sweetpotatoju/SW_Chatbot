@@ -1,0 +1,98 @@
+<!-- chatbot_db_management.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 DB 관리</title>
+    <style>
+        /* 추가된 CSS 스타일 */
+        .form-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        select {
+            margin-right: 10px; /* 선택 버튼 오른쪽에 간격을 주기 위한 마진 설정 */
+        }
+
+        /* 추가된 CSS 스타일: 링크 스타일 지정 */
+        .details-link {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <select name="db_type">
+                <option value="공지">공지</option>
+                <option value="질문 답변">질문 답변</option>
+            </select>
+            <input type="submit" value="선택">
+        </form>
+
+        <!-- 뒤로가기 버튼을 선택 버튼 옆에 배치 -->
+        <form method="get" action="{% url 'management' %}">
+            <input type="submit" value="뒤로가기">
+        </form>
+    </div>
+
+    {% if notices %}
+        <h3>공지 데이터</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                    <th>상세 보기</th> <!-- 새로운 열 추가 -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for notice in notices %}
+                    <tr>
+                        <td>{{ notice.title }}</td>
+                        <td>{{ notice.content }}</td>
+                        <td>{{ notice.created_at }}</td>
+                        <!-- 상세 보기 링크 추가 -->
+                        <td><a href="{% url 'notice_detail' notice.id %}" class="details-link">상세 보기</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if qatables %}
+        <h3>질문 답변 데이터</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question Content</th>
+                    <th>Question Summary</th>
+                    <th>Answer Content</th>
+                    <th>Created At</th>
+                    <th>상세 보기</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for qatable in qatables %}
+                    <tr>
+                        <td>{{ qatable.question_content }}</td>
+                        <td>{{ qatable.question_summary }}</td>
+                        <td>{{ qatable.answer_content }}</td>
+                        <td>{{ qatable.created_at }}</td>
+                        <!-- 상세 보기 링크 추가 -->
+                        <td><a href="{% url 'qatable_detail' qatable.id %}" class="details-link">상세 보기</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
+</body>
+</html>

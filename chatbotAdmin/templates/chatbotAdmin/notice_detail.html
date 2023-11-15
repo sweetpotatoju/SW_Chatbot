@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 공지 상세 보기</title>
+</head>
+<body>
+    <h1>{{ notice.title }}</h1>
+    <p>{{ notice.content }}</p>
+    <p>작성일: {{ notice.created_at|date:"Y년 m월 d일 H:i:s"}}</p>
+</body>
+</html>

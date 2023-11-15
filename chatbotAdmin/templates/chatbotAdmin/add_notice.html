@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 공지 추가</title>
+    <style>
+         body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            width: 60%;
+            text-align: center; /* Center the content inside the form */
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"],
+        .cancel-button {
+            width: 45%; /* Adjust the width to leave some space between buttons */
+            display: inline-block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #999;
+            border-radius: 5px;
+            background-color: #888; /* Gray color for both buttons */
+            box-sizing: border-box; /* Include padding and border in the width */
+            margin-right: 10px; /* Add a margin between the buttons */
+            margin-bottom: 10px; /* Add margin at the bottom of the buttons */
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <h1>공지 추가</h1>
+        <p>
+        <label for="id_title">제목:</label>
+        <input type="text" name="title" id="id_title" required>
+        </p>
+        <p>
+        <label for="id_content">내용:</label>
+        <textarea name="content" id="id_content"></textarea>
+        </p>
+        <input type="submit" value="추가" onclick="showCustomPopup('추가');">
+        <a href="{% url 'management' %}" class="cancel-button" onclick="showCustomPopup('뒤로가기');">뒤로가기</a>
+    </form>
+
+    <script>
+        function showCustomPopup(action) {
+            var result = confirm('정말로 ' + action + '하시겠습니까?');
+            if (!result) {
+                event.preventDefault();  // 이벤트 취소 (추가 또는 뒤로가기 취소)
+            }
+        }
+    </script>
+</body>
+
+</html>

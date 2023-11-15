@@ -18,7 +18,16 @@ from django.contrib import admin
 from django.urls import path
 from main.views import userpage
 
+import chatbotAdmin.views
+
 urlpatterns = [
+    path('admin_page/', chatbotAdmin.views.admin_page, name='admin_page'),
+    path('management/', chatbotAdmin.views.management, name='management'),
+    path('add_notice/', chatbotAdmin.views.add_notice, name='add_notice'),
+    path('add_question_answer/', chatbotAdmin.views.add_question_answer, name='add_question_answer'),
+    path('chatbot_db_management/', chatbotAdmin.views.chatbot_db_management, name='chatbot_db_management'),
+    path('notice_detail/<int:pk>/', chatbotAdmin.views.notice_detail, name='notice_detail'),
+    path('qatable_detail/<int:pk>/', chatbotAdmin.views.qatalbe_detail, name='qatable_detail'),
     path('admin/', admin.site.urls),
     path('', userpage, name='userpage'),
 
