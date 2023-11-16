@@ -33,9 +33,6 @@ def sentence_generation(sentence, start_token, end_token, tokenizer, model):
     predicted_sentence = tokenizer.decode(
         [i for i in prediction if i < tokenizer.vocab_size])
 
-    print('입력 : {}'.format(sentence))
-    print('출력 : {}'.format(predicted_sentence))
-
     return predicted_sentence
 
 
