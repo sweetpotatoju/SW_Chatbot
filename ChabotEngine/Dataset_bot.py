@@ -1,16 +1,9 @@
 import mysql.connector
 from mysql.connector import Error
 import pandas as pd
+from mysetting import *
 
 # MySQL 서버 연결 설정
-db_config = {
-    'user': 'test1',
-    'password': 'data3wh!!',
-    'host': '210.117.175.207',
-    'port': 6130,
-    'database': 'chatbot',
-    'charset': 'utf8mb4',
-}
 
 # MySQL에 연결
 connection = None
@@ -79,3 +72,16 @@ finally:
     if connection and connection.is_connected():
         cursor.close()
         connection.close()
+
+
+# import urllib
+# import pandas as pd
+# from urllib.request import urlopen
+#
+#
+# urllib.request.urlretrieve("https://raw.githubusercontent.com/songys/Chatbot_data/master/ChatbotData.csv", filename="ChatBotData.csv")
+# train_data = pd.read_csv('ChatBotData.csv')
+# train_data.head()
+#
+# print('챗봇 샘플의 개수 :', len(train_data))
+# print(train_data.isnull().sum())
