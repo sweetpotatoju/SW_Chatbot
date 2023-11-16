@@ -23,7 +23,7 @@ start_token = loaded_data['start_token']
 end_token = loaded_data['end_token']
 tokenizer = loaded_data['tokenizer']
 
-input_sentence = "게임 하고 싶당"
+input_sentence = ("영화 보러 갈까?")
 sentence_generation(input_sentence, start_token, end_token, tokenizer, model)
 
 
