@@ -29,15 +29,13 @@ def decoder_inference(sentence, start_token, end_token, tokenizer, model):
 
 def sentence_generation(sentence, start_token, end_token, tokenizer, model):
     prediction = decoder_inference(sentence, start_token, end_token, tokenizer, model)
-    print(prediction)
 
     predicted_sentence = tokenizer.decode(
         [i for i in prediction if i < tokenizer.vocab_size])
-    print(tokenizer.vocab_size)
-    print(tokenizer.decode)
-    print(predicted_sentence)
 
     print('입력 : {}'.format(sentence))
     print('출력 : {}'.format(predicted_sentence))
 
     return predicted_sentence
+
+
