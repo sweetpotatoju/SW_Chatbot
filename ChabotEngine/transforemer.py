@@ -45,10 +45,10 @@ def scaled_dot_product_attention(query, key, value, mask):
     return output
 
 
-class MultiHeadAttention(tf.keras.layers.Layer):
+class MYMultiHeadAttention(tf.keras.layers.Layer):
 
-    def __init__(self, d_model, num_heads, name="multi_head_attention"):
-        super(MultiHeadAttention, self).__init__(name=name)
+    def __init__(self, d_model, num_heads, name="my_multi_head_attention"):
+        super(MYMultiHeadAttention, self).__init__(name=name)
         self.num_heads = num_heads
         self.d_model = d_model
 
@@ -90,7 +90,6 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 
         return outputs
 
-
 def create_padding_mask(x):
     mask = tf.cast(tf.math.equal(x, 0), tf.float32)
     return mask[:, tf.newaxis, tf.newaxis, :]
@@ -109,7 +108,7 @@ def encoder_layer(units, d_model, num_heads, dropout, name="encoder_layer"):
 
     padding_mask = tf.keras.Input(shape=(1, 1, None), name="padding_mask")
 
-    attention = MultiHeadAttention(
+    attention = MYMultiHeadAttention(
         d_model, num_heads, name="attention")({
         'query': inputs,
         'key': inputs,
@@ -170,7 +169,7 @@ def decoder_layer(units, d_model, num_heads, dropout, name="decoder_layer"):
         shape=(1, None, None), name="look_ahead_mask")
     padding_mask = tf.keras.Input(shape=(1, 1, None), name='padding_mask')
 
-    attention1 = MultiHeadAttention(
+    attention1 = MYMultiHeadAttention(
         d_model, num_heads, name="attention_1")(inputs={
         'query': inputs,
         'key': inputs,
@@ -181,7 +180,7 @@ def decoder_layer(units, d_model, num_heads, dropout, name="decoder_layer"):
     attention1 = tf.keras.layers.LayerNormalization(
         epsilon=1e-6)(attention1 + inputs)
 
-    attention2 = MultiHeadAttention(
+    attention2 = MYMultiHeadAttention(
         d_model, num_heads, name="attention_2")(inputs={
         'query': attention1,
         'key': enc_outputs,
