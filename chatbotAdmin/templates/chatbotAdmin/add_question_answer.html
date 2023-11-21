@@ -59,14 +59,12 @@
 <body>
     <form method="post">
         {% csrf_token %}
-        <label for="{{ form.question_content.id_for_label }}">Question Content:</label>
-        {{ form.question_content }}
+        <label for="{{ form.q.id_for_label }}">Question Content:</label>
+        {{ form.q }}
+
         <br>
-        <label for="{{ form.question_summary.id_for_label }}">Question Summary:</label>
-        {{ form.question_summary }}
-        <br>
-        <label for="{{ form.answer_content.id_for_label }}">Answer Content:</label>
-        {{ form.answer_content }}
+        <label for="{{ form.a.id_for_label }}">Answer Content:</label>
+        {{ form.a }}
         <br>
         <input type="submit" value="추가" onclick="showCustomPopup('추가');">
         <a href="{% url 'management' %}" class="cancel-button" onclick="showCustomPopup('뒤로가기');">뒤로가기</a>
