@@ -5,9 +5,9 @@
     <title>챗봇 질문 답변 상세</title>
 </head>
 <body>
-    <h1>{{ qatable.question_content }}</h1>
-    <p>{{ qatable.question_summary }}</p>
-    <p>{{ qatable.answer_content }}</p>
+    <h1>{{ qatable.q }}</h1>
+
+    <p>{{ qatable.a }}</p>
     <p>작성일: {{ qatable.created_at|date:"Y년 m월 d일 H:i:s" }}</p>
 </body>
 </html>

@@ -11,7 +11,7 @@ class NoticeForm(forms.ModelForm):
 class QATableForm(forms.ModelForm):
     class Meta:
         model = QATable
-        fields = ['question_content', 'question_summary', 'answer_content']
+        fields = ['q', 'a']
 
     def __init__(self, *args, **kwargs):
         super(QATableForm, self).__init__(*args, **kwargs)
@@ -20,4 +20,4 @@ class QATableForm(forms.ModelForm):
         unused_questions = Question.objects.filter(answer_status='N')
 
         # Question 필드를 새로운 QuerySet으로 업데이트
-        self.fields['question_content'].queryset = unused_questions
+        self.fields['q'].queryset = unused_questions
