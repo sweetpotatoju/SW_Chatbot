@@ -2,81 +2,95 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>소프트웨어공학과채팅봇</title>
+    <title>챗봇</title>
     <style>
         body {
-            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
         }
 
-        .scroll-box {
-            border: 3px solid #000;
-            width: 800px; /* 너비 조정 (가운데 정렬을 위해 줄임) */
-            height: 500px;
-            overflow: auto;
-            margin: 10px auto; /* 수평 가운데 정렬을 위해 추가 */
-            padding: 10px;
-            border-radius: 10px;
+        #chat-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        .input-container input[type="text"] {
-            width: 600px;
-            height : 30px;
-
+        #chat-display {
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
         }
 
-        .input-container input[type="password"] {
-            width: 100px;
-            height : 30px;
+        .user-message {
+            text-align: right;
+            color: #000000;
         }
 
-        .input-container button {
-            width : 100px;
-            height : 35px;
-        }
-
-        .responseMessage {
+        .chatbot-message {
             text-align: left;
+            color: #009688;
         }
 
+        #user-input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ddd;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #61678c;
+            color: #fff;
+            border: none;
+            border-top: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000000;
+        }
     </style>
-    <script src="userpage.js"></script>
 </head>
 <body>
-    <h1>학과상담채팅봇</h1>
-    <div class="scroll-box" id ="chat-container">
-         <div class="responseMessage" id="response-container"></div>
-
-    </div>
-    <div class="input-container">
-        <form>
-            <input type="text" id="question_text"  class="input-container" placeholder="질문을 입력하세요" required>
-<!--            <input type="password" id="password" class="input-container" placeholder="password" required>-->
-            <button id="submit_btn" class="button">등록</button>
-        </form>
+    <div id="chat-container">
+        <div id="chat-display"></div>
+        <input type="text" id="user-input" placeholder="메시지를 입력하세요" />
+        <button onclick="sendMessage()">전송</button>
     </div>
 
-<script>
-    //버튼 누르면 질문 내용과 답변 내용 표시
-    document.getElementById('submit_btn').addEventListener('click', function(event) {
+    <script>
+        function sendMessage() {
+            var user_input = document.getElementById('user-input').value;
+            document.getElementById('user-input').value = '';
 
-    //질문 내용 작성
-    var userquestion = document.getElementById('question_text').value;
-    var response = document.getElementById('response-container');
+            var chat_display = document.getElementById('chat-display');
+            chat_display.innerHTML += '<p class="user-message">사용자: ' + user_input + '</p>';
 
-    var questionParagraph = document.createElement('p');
-    var replyParagraph = document.createElement('R');
-    questionParagraph.textContent = '질문 내용: ' + userquestion;
-    replyParagraph.textContent = '답변 내용: ';
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', ' ', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText).response;
+                        chat_display.innerHTML += '<p class="chatbot-message">챗봇: ' + response + '</p>';
+                    } else {
+                        console.error('서버 응답 오류:', xhr.status);
+                    }
+                }
+            };
 
-    response.appendChild(questionParagraph);
-    response.appendChild(replyParagraph);
-
-
-    event.preventDefault();
-});
-
-
-</script>
-
+            xhr.send('user_input=' + encodeURIComponent(user_input));
+        }
+    </script>
 </body>
 </html>
