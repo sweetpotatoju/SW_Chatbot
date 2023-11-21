@@ -7,7 +7,6 @@ from .chatbot_logic import get_chatbot_response
 
 @csrf_exempt
 def chatbot_view(request):
-    print("여기까지옴")
     if request.method == 'POST':
         try:
             user_input = request.POST.get('user_input')
