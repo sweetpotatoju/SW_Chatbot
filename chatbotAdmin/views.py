@@ -43,8 +43,8 @@ def add_question_answer(request):
             instance = form.save(commit=False)
 
             # answer_status 값을 'Y'로 설정
-            instance.question_content.answer_status = 'Y'
-            instance.question_content.save()
+            instance.q.answer_status = 'Y'
+            instance.q.save()
 
             instance.save()
 
