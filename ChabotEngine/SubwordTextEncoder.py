@@ -13,12 +13,6 @@ def build_and_tokenize_corpus(questions, answers, max_length=40, target_vocab_si
     START_TOKEN, END_TOKEN = [tokenizer.vocab_size], [tokenizer.vocab_size + 1]
     VOCAB_SIZE = tokenizer.vocab_size + 2
 
-    print('START_TOKEN의 번호 :', [tokenizer.vocab_size])
-    print('END_TOKEN의 번호 :', [tokenizer.vocab_size + 1])
-
-    print('정수 인코딩 후의 21번째 질문 샘플: {}'.format(tokenizer.encode(questions[21])))
-    print('정수 인코딩 후의 21번째 답변 샘플: {}'.format(tokenizer.encode(answers[21])))
-    print("-----------------------------------------------------")
 
     def tokenize_and_filter(inputs, outputs):
         tokenized_inputs, tokenized_outputs = [], []

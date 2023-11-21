@@ -13,13 +13,13 @@ BUFFER_SIZE = 20000
 print(MAX_SAMPLES)
 print("-----------------------------------------------------")
 
-questions, answers = load_conversations(train_data['Q'], train_data['A'])
+questions, answers = load_conversations(train_data['Question'], train_data['Answer'])
 print('전체 샘플 수 :', len(questions))
 print('전체 샘플 수 :', len(answers))
 print("-----------------------------------------------------")
 
-print('전처리 후의 22번째 질문 샘플: {}'.format(questions[21]))
-print('전처리 후의 22번째 답변 샘플: {}'.format(answers[21]))
+print('전처리 후의 22번째 질문 샘플: {}'.format(questions[13]))
+print('전처리 후의 22번째 답변 샘플: {}'.format(answers[13]))
 print("-----------------------------------------------------")
 
 # build_and_tokenize_corpus 함수 사용

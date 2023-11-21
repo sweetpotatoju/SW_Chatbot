@@ -56,13 +56,13 @@ try:
 
     # 결과를 데이터프레임으로 변환
     columns = [desc[0] for desc in cursor.description]
-    sample_data = pd.DataFrame(cursor.fetchall(), columns=columns)
+    train_data = pd.DataFrame(cursor.fetchall(), columns=columns)
 
     # 결과 출력
     print("-----------------------------------------------")
-    print('챗봇 샘플의 개수:', len(sample_data))
-    print(sample_data.isnull().sum())
-    print(sample_data)
+    print('챗봇 샘플의 개수:', len(train_data))
+    print(train_data.isnull().sum())
+    print(train_data)
 
 except Error as e:
     print(f"Error: {e}")
