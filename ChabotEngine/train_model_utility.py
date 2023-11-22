@@ -9,7 +9,7 @@ import pickle
 MAX_SAMPLES = 50000
 BATCH_SIZE = 64
 BUFFER_SIZE = 20000
-0
+
 print(MAX_SAMPLES)
 print("-----------------------------------------------------")
 
