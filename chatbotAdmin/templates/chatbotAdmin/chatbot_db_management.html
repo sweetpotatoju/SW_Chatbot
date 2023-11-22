@@ -22,6 +22,7 @@
             cursor: pointer;
             text-decoration: underline;
         }
+
     </style>
 </head>
 <body>
@@ -39,6 +40,7 @@
         <form method="get" action="{% url 'management' %}">
             <input type="submit" value="뒤로가기">
         </form>
+
     </div>
 
     {% if notices %}
@@ -67,7 +69,10 @@
     {% endif %}
 
     {% if qatables %}
-        <h3>질문 답변 데이터</h3>
+        <div class="form-container">
+            <h3>질문 답변 데이터</h3>
+            <button class="update_button" onclick="updateModel()">업데이트</button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -93,6 +98,21 @@
         </table>
     {% endif %}
 
+    <script>
+        function updateModel() {
+            // 서버에 요청을 보내는 부분
+            fetch('/update_model/', { method: 'POST' })
+                .then(response => response.text())
+                .then(data => {
+                    // 성공 메시지를 받았을 때의 동작
+                    alert(data);
+                })
+                .catch(error => {
+                    // 오류가 발생한 경우 오류 메시지를 출력
+                    console.error('Error:', error);
+                });
+        }
+    </script>
 
 </body>
 </html>

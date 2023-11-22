@@ -1,6 +1,10 @@
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NoticeForm, QATableForm
 from .models import Notice, QATable
+from .train_logic import train_moodel_logic
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 # 비밀번호 페이지
@@ -76,3 +80,21 @@ def notice_detail(request, pk):
 def qatalbe_detail(request, pk):
     qatable = get_object_or_404(QATable, pk=pk)
     return render(request, 'chatbotAdmin/qatable_detail.html', {'qatable': qatable})
+
+
+@csrf_exempt
+# 모델 훈련 업데이트를 수행하는 뷰
+def update_model(request):
+    if request.method=='POST':
+        try:
+            # 모델 훈련 로직 호출
+            train_moodel_logic()
+
+            # 훈련이 완료되면 클라이언트에게 성공 응답을 전송
+            return JsonResponse({'status': 'success', 'message': '모델 훈련이 성공적으로 완료되었습니다.'})
+        except Exception as e:
+            # 오류가 발생한 경우 클라이언트에게 오류 응답을 전송
+            return JsonResponse({'status': 'error', 'message': str(e)})
+
+    return render(request, 'chatbotAdmin/chatbot_db_management.html')
+
