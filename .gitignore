@@ -1,0 +1,15 @@
+## 파일 무시
+test.txt
+mysetting.py
+
+## 다음과 같은 확장자는 전체 무시
+*.pyc
+*.pkl
+*.csv
+
+
+
+## 폴더 무시
+saved_transformer_model/
+
+
