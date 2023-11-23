@@ -30,6 +30,7 @@ urlpatterns = [
     path('chatbot_db_management/', chatbotAdmin.views.chatbot_db_management, name='chatbot_db_management'),
     path('notice_detail/<int:pk>/', chatbotAdmin.views.notice_detail, name='notice_detail'),
     path('qatable_detail/<int:pk>/', chatbotAdmin.views.qatalbe_detail, name='qatable_detail'),
+    path('update_model/', chatbotAdmin.views.update_model, name='update_model'),
     path('admin/', admin.site.urls),
     path('', main.views.chatbot_view, name='chatbot_view'),
 
