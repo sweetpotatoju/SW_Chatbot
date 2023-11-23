@@ -17,7 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/ChabotEngine/saved_transformer_model" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="SW_Chatbot" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (SW_Chatbot)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="SonarLintModuleSettings">

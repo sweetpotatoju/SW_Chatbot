@@ -12,4 +12,5 @@ mysetting.py
 ## 폴더 무시
 saved_transformer_model/
 
+venv/
 
