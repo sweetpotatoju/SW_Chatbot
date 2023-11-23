@@ -46,7 +46,7 @@ def train_moodel_logic():
     dataset = dataset.prefetch(tf.data.experimental.AUTOTUNE)
 
     VOCAB_SIZE = vocab_size_
-    EPOCHS = 100  # 훈련 횟수 설정
+    EPOCHS = 50  # 훈련 횟수 설정
     NUM_LAYERS = 6  # 인코더와 디코더의 층의 개수
     D_MODEL = 512  # 인코더와 디코더 내부의 입, 출력의 고정 차원
     NUM_HEADS = 8  # 멀티 헤드 어텐션에서의 헤드 수
@@ -54,9 +54,14 @@ def train_moodel_logic():
     DROPOUT = 0.1  # 드롭아웃의 비율
 
     model = build_model(VOCAB_SIZE, NUM_LAYERS, D_MODEL, NUM_HEADS, UNITS, DROPOUT, dataset, EPOCHS)
-    model.save("saved_transformer_model", save_format='tf')
+    
+    save_directory = r"C:\Users\aiselab\PycharmProjects\SW_Chatbot\ChabotEngine"
 
-    with open("토큰_및_토크나이저.pkl", 'wb') as file:
+    # 모델 저장
+    model.save(os.path.join(save_directory, "saved_transformer_model"), save_format='tf')
+
+    # 토큰 및 토크나이저 저장
+    with open(os.path.join(save_directory, "토큰_및_토크나이저.pkl"), 'wb') as file:
         pickle.dump({
             'start_token': start_token,
             'end_token': end_token,
