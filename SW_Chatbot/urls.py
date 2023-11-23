@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import userpage
+
+import main.views
+from main.views import chatbot_view
 
 import chatbotAdmin.views
 
@@ -30,6 +32,6 @@ urlpatterns = [
     path('qatable_detail/<int:pk>/', chatbotAdmin.views.qatalbe_detail, name='qatable_detail'),
     path('update_model/', chatbotAdmin.views.update_model, name='update_model'),
     path('admin/', admin.site.urls),
-    path('', userpage, name='userpage'),
+    path('', main.views.chatbot_view, name='chatbot_view'),
 
 ]

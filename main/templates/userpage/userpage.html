@@ -1,82 +1,298 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="">
+<html class="no-js lt-ie9 lt-ie8" lang="">
+<html class="no-js lt-ie9" lang="">
+<html class="no-js" lang="en-US">
+
 <head>
-    <meta charset="UTF-8">
-    <title>소프트웨어공학과채팅봇</title>
+    <title>챗봇</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A free html template with Sketch design made with Bootstrap">
+    <meta name="keywords" content="free html template, bootstrap, ui kit, sass" />
+    <meta name="author" content="Codrops" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="jbnu" sizes="189x50"  href="../../static/img/favicon/jbnu.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/favicon/apple-touch-icon-180x180.png">
+
+    <link rel="icon" type="image/png" href="../../static/img/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../../static/img/favicon/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="../../static/img/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="../../static/img/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="../../static/img/favicon/favicon-16x16.png" sizes="16x16">
+
+    <link rel="manifest" href="../../static/img/favicon/manifest.json">
+    <link rel="mask-icon" href="../../static/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../../static/img/favicon/favicon.ico">
+
+
+    <meta name="msapplication-TileColor" content="#66e0e5">
+    <meta name="msapplication-TileImage" content="../../static/img/favicon/mstile-144x144.png">
+    <meta name="msapplication-config" content="../../static/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#66e0e5">
+
+    <!-- end favicon links -->
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/css/normalize.min.css">
+    <link rel="stylesheet" href="../../static/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/css/flickity.min.css">
+    <link rel="stylesheet" href="../../static/css/styles.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <style>
         body {
-            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
         }
 
-        .scroll-box {
-            border: 3px solid #000;
-            width: 800px; /* 너비 조정 (가운데 정렬을 위해 줄임) */
-            height: 500px;
-            overflow: auto;
-            margin: 10px auto; /* 수평 가운데 정렬을 위해 추가 */
-            padding: 10px;
-            border-radius: 10px;
+        #chat-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        .input-container input[type="text"] {
-            width: 600px;
-            height : 30px;
-
+        #chat-display {
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
         }
 
-        .input-container input[type="password"] {
-            width: 100px;
-            height : 30px;
+        .user-message {
+            text-align: right;
+            color: #000000;
         }
 
-        .input-container button {
-            width : 100px;
-            height : 35px;
-        }
-
-        .responseMessage {
+        .chatbot-message {
             text-align: left;
+            color: #009688;
         }
 
+        #user-input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ddd;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #61678c;
+            color: #fff;
+            border: none;
+            border-top: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000000;
+        }
     </style>
-    <script src="userpage.js"></script>
 </head>
+
 <body>
-    <h1>학과상담채팅봇</h1>
-    <div class="scroll-box" id ="chat-container">
-         <div class="responseMessage" id="response-container"></div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="header-nav-wrapper">
+			<div class="logo">
+				<a href="https://software.jbnu.ac.kr/software/index.do"><img src="../../static/img/favicon/jbnu.png" alt="jbnu"></a>
+			</div>
+			<div class="primary-nav-wrapper">
+				<div class="secondary-nav-wrapper">
+					<ul class="secondary-nav">
+						<li class="subscribe"><a href="/admin_page">Admin Page</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-    </div>
-    <div class="input-container">
-        <form>
-            <input type="text" id="question_text"  class="input-container" placeholder="질문을 입력하세요" required>
-<!--            <input type="password" id="password" class="input-container" placeholder="password" required>-->
-            <button id="submit_btn" class="button">등록</button>
-        </form>
-    </div>
+<!-- 메인 화면  -->
+<header class="hero">
+	<div class="carousel js-flickity">
+		<div class="carousel-cell" style="background-image: url(../../static/img/hero-bg-01.jpg);">
+			<div class="hero-bg">
+				<div class="container">
+                    <div class="col-md-12 text-center">
+                        <h1 class="wp1">채팅 봇</h1>
+                            <div id="chat-container">
+                                <div id="chat-display"></div>
+                                <input type="text" id="user-input" placeholder="메시지를 입력하세요" />
+                                <button onclick="sendMessage()">전송</button>
+                            </div>
 
+                            <script>
+                                function sendMessage() {
+                                    var user_input = document.getElementById('user-input').value;
+                                    document.getElementById('user-input').value = '';
+
+                                    var chat_display = document.getElementById('chat-display');
+                                    chat_display.innerHTML += '<p class="user-message">사용자: ' + user_input + '</p>';
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', ' ', true);
+                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState == 4) {
+                                            if (xhr.status == 200) {
+                                                var response = JSON.parse(xhr.responseText).response;
+                                                chat_display.innerHTML += '<p class="chatbot-message">챗봇: ' + response + '</p>';
+                                            } else {
+                                                console.error('서버 응답 오류:', xhr.status);
+                                            }
+                                        }
+                                    };
+
+                                    xhr.send('user_input=' + encodeURIComponent(user_input));
+                                }
+                            </script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <!--마우스 아이콘 -->
+	<div class='mouse-container'>
+		<a href="#intro">
+			<div class='mouse'>
+				<span class='scroll-down'></span>
+			</div>
+		</a>
+	</div>
+</header>
+
+<!-- 공지사항 -->
+<section class="latest-articles has-padding alternate-bg" id="articles">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-4">
+				<h1 class="wp1">공지 사항</h1>
+                <p> getNotice </p>
+			</div>
+
+            <!--카테고리 검색
+			<div class="col-md-8 col-sm-8 sort">
+				<h5>Sort by</h5>
+				<select name="article-sort" id="inputArticle-Sort" class="">
+					<option value="">Experience Design</option>
+					<option value="">Visual Design</option>
+					<option value="">UI Patterns</option>
+					<option value="">Product Design</option>
+				</select>
+			</div>    -->
+
+		</div>
+
+        <!-- 공지사항 내용 -->
+        <div class="row">
+            <div class="col-md-4">
+                <article class="article-post">
+                    <a href="#">
+                        <div class="article-image has-overlay" style="background-image: url(../../static/img/article-01.jpg)">
+                            <span class="featured-tag">Featured</span>
+                        </div>
+                        <figure>
+                            <figcaption>
+                                <h2>Simple Text Article</h2>
+                                <p>This is a simple text article without any specific format.</p>
+                            </figcaption>
+                        </figure>
+                    </a>
+                    <ul class="article-footer">
+                        <li class="article-category">
+                            <a href="#">General</a>
+                        </li>
+                        <li class="article-comments">
+                            <span><i class="fa fa-comments"></i> 10</span>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+</div>
+		<div class="row">
+			<div class="col-md-4">
+				<article class="article-post">
+					<a href="#">
+						<div class="article-image has-overlay" style="background-image: url(../../static/img/article-01.jpg)">
+							<span class="featured-tag">Featured</span>
+						</div>
+						<figure>
+							<figcaption>
+								<h2>8 solid tips when working with front-end developers</h2>
+								<p>A posuere donec senectus suspendisse bibendum magna ridiculus a justo orci parturient suspendisse ad rhoncus...</p>
+							</figcaption>
+						</figure>
+					</a>
+					<ul class="article-footer">
+						<li class="article-category">
+							<a href="#">Product</a>
+						</li>
+						<li class="article-comments">
+							<span><i class="fa fa-comments"></i> 51</span>
+						</li>
+					</ul>
+				</article>
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- END SECTION: Articles -->
+
+<!-- SECTION: Footer -->
+<footer class="has-padding footer-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 footer-branding">
+				<img class="footer-branding-logo" src="../img/synthetica-logo.png" alt="Synthetica freebie html5 css3 template logo">
+				<p>A free website template created exclusively for <a href="http://sc.chinaz.com/?codrops/"><em>Codrops</em></a></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 footer-nav">
+				<ul class="footer-primary-nav">
+					<li><a href="#articles">Articles</a></li>
+					<li><a href="#">Subscribe</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- END SECTION: Footer -->
+<!-- JS CDNs -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery-ui.min.js"></script>
+<script src="../js/video.min.js"></script>
+<!-- jQuery local fallback -->
 <script>
-    //버튼 누르면 질문 내용과 답변 내용 표시
-    document.getElementById('submit_btn').addEventListener('click', function(event) {
-
-    //질문 내용 작성
-    var userquestion = document.getElementById('question_text').value;
-    var response = document.getElementById('response-container');
-
-    var questionParagraph = document.createElement('p');
-    var replyParagraph = document.createElement('R');
-    questionParagraph.textContent = '질문 내용: ' + userquestion;
-    replyParagraph.textContent = '답변 내용: ';
-
-    response.appendChild(questionParagraph);
-    response.appendChild(replyParagraph);
-
-
-    event.preventDefault();
-});
-
-
+window.jQuery || document.write('<script src="../../static/js/min/jquery-1.11.2.min.js"><\/script>')
 </script>
-
+<!-- JS Locals -->
+<script src="../../static/js/min/bootstrap.min.js"></script>
+<script src="../../static/js/min/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<script src="../../static/js/min/retina.min.js"></script>
+<script src="../../static/js/min/jquery.waypoints.min.js"></script>
+<script src="../../static/js/min/flickity.pkgd.min.js"></script>
+<script src="../../static/js/min/scripts-min.js"></script>
 </body>
+
 </html>
