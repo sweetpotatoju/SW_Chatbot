@@ -14,7 +14,7 @@ def train_moodel_logic():
     print(MAX_SAMPLES)
     print("-----------------------------------------------------")
 
-    questions, answers = load_conversations(train_data['question_text'], train_data['a'])
+    questions, answers = load_conversations(train_data['Q'], train_data['A'])
     print('전체 샘플 수 :', len(questions))
     print('전체 샘플 수 :', len(answers))
     print("-----------------------------------------------------")

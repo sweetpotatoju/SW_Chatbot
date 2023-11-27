@@ -79,7 +79,6 @@
                     <th>질문</th>
                     <th>답변</th>
                     <th>label</th>
-                    <th>작성일</th>
                     <th>상세 보기</th>
                 </tr>
             </thead>
@@ -89,7 +88,6 @@
                         <td>{{ qatable.q }}</td>
                         <td>{{ qatable.a }}</td>
                         <td>{{ qatable.label }}</td>
-                        <td>{{ qatable.created_at }}</td>
                         <!-- 상세 보기 링크 추가 -->
                         <td><a href="{% url 'qatable_detail' qatable.id %}" class="details-link">상세 보기</a></td>
                     </tr>

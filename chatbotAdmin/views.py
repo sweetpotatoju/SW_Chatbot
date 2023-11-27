@@ -66,7 +66,7 @@ def chatbot_db_management(request):
             notices = Notice.objects.order_by('-created_at')
             return render(request, 'chatbotAdmin/chatbot_db_management.html', {'notices': notices})
         elif db_type == '질문 답변':
-            qatables = QATable.objects.order_by('-created_at')
+            qatables = QATable.objects.all()
             return render(request, 'chatbotAdmin/chatbot_db_management.html', {'qatables': qatables})
 
     return render(request, 'chatbotAdmin/chatbot_db_management.html')
