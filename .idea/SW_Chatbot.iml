@@ -17,11 +17,11 @@
       <excludeFolder url="file://$MODULE_DIR$/ChabotEngine/saved_transformer_model" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (SW_Chatbot)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="SW_Chatbot" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="9b8f84cd-a90c-445f-819c-eec916f3a904" />
+    <option name="uniqueId" value="7ca0c182-54d5-4fac-bc10-e5a177625cdd" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
