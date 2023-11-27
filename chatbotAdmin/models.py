@@ -20,7 +20,7 @@ class QATable(models.Model):
 
     #question_summary = models.CharField(max_length=255)
     a = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    #created_at = models.DateTimeField(auto_now_add=True)
     label = models.IntegerField(default=0)
 
     def __str__(self):
