@@ -77,7 +77,7 @@ def notice_detail(request, pk):
     return render(request, 'chatbotAdmin/notice_detail.html', {'notice': notice})
 
 # DB 관리 페이지 공지 상세 보기
-def qatalbe_detail(request, pk):
+def qatable_detail(request, pk):
     qatable = get_object_or_404(QATable, pk=pk)
     return render(request, 'chatbotAdmin/qatable_detail.html', {'qatable': qatable})
 
