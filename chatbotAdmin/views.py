@@ -81,12 +81,6 @@ def qatable_detail(request, pk):
     qatable = get_object_or_404(QATable, pk=pk)
     return render(request, 'chatbotAdmin/qatable_detail.html', {'qatable': qatable})
 
-# 유저 페이지에 공지 안내
-def user_page(request):
-    notices = Notice.objects.all()
-    return render(request, 'userpage/userpage.html', {'notices': notices})
-
-
 @csrf_exempt
 # 모델 훈련 업데이트를 수행하는 뷰
 def update_model(request):

@@ -1,149 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-us">
 
 <head>
     <title>소프트웨어공학과 챗봇</title>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
 
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            height: 100%;
-            margin: 0;
-            background-color: #f2f2f2;
-            overflow-y: auto;
-        }
-
-        .logo {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .text {
-            width: 50%;
-            height: 30px;
-            position: absolute;
-            font-size: 30px;
-            top: 0;
-            left: 40%;
-        }
-
-
-        .admin{
-            position: absolute;
-            bottom: 6%;
-            right: 0;
-            font-size: 20px;
-        }
-
-        {#채팅 보이는 화면#}
-        #chat-container {
-            position: absolute;
-            width : 85%;
-            height: 100%;
-            right: 0;
-            margin: 50px auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #chat-display {
-            width: calc(100% - 40px);
-            padding: 20px;
-            height: 80%;
-            overflow-y: auto;
-            border-bottom: 1px solid #ddd;
-        }
-
-        {#사용자 입력 칸#}
-        #user-input {
-            position:absolute;
-            width: 90%;
-            height: 50px;
-            padding: 5px;
-            font-size: 20px;
-            border: 0 solid #ddd;
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            outline: none;
-        }
-
-        button {
-            position: absolute;
-            height: 62px;
-            width: 10%;
-            right: 0;
-            background-color: #61678c;
-            color: #fff;
-            border: none;
-            border-top: 1px solid #ddd;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #000000;
-        }
-
-        .input-container input[type="text"] {
-            width: 700px;
-            height : 50px;
-            margin: 10px;
-            border-radius: 10px;
-        }
-
-        {#사이드바#}
-        .sidebar {
-            width: 15%;
-            height: 100%;
-            top: 5%;
-            background-color: #61678c;
-            border-radius:10px;
-            padding-top: 20px;
-            position: absolute;
-        }
-
-        .sidebar a:hover {
-            color: #fff;
-        }
-
-        .notice-title{
-            font-size: 30px;
-            padding: 5px;
-        }
-
-        .notice-title:hover{
-            color: #fff;
-        }
-
-        {# 공지사항 부분 #}
-        .notice-panel {
-            position: fixed;
-            width: 100%;
-            height: 40%;
-            bottom: -40%; /* 초기에는 숨겨진 상태 */
-            left: 0;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            padding: 20px;
-            transition: bottom 0.5s ease; /* 애니메이션 효과를 위한 설정 */
-        }
-
-        .notice-content{
-            font-size: 20px;
-            padding: 5px;
-        }
-
-    </style>
 </head>
 
 <body>
-    <!--소프트웨어공학과 홈페이지 -->
+    <!-- 소프트웨어공학과 홈페이지 -->
     <div class="logo">
         <a href="https://software.jbnu.ac.kr/software/index.do">
             <img src="https://software.jbnu.ac.kr/sites/software/images/logo.png" alt="JBNU_SW"></a>
@@ -152,87 +19,86 @@
         소프트웨어공학과 챗봇
     </div>
 
-
     <div class="sidebar">
         <div class="notice-title" onmouseover="showNotice()" onmouseout="hideNotice()">Notice</div>
     </div>
 
-    <!-- 메인 화면  -->
+    <!-- 메인 화면 -->
     <header>
         <div>
             <div id="chat-container">
                 <div id="chat-display"></div>
                 <div id="input-container">
-                    <input type="text" id="user-input" placeholder="메시지를 입력하세요"/>
-                    <button onclick="sendMessage()" >전송</button>
+                    <label for="user-input"></label>
+                    <input type="text" id="user-input" placeholder="메시지를 입력하세요" />
+                    <button onclick="sendMessage()">전송</button>
                 </div>
                 <div class="admin">
                     <a href="/admin_page">관리자 페이지</a>
                 </div>
             </div>
         </div>
-
     </header>
 
-
-     <!-- 공지사항 부분 -->
+    <!-- 공지사항 부분 -->
     <div class="notice-panel" onmouseover="showNotice()" onmouseout="hideNotice()">
-        <div class="notice-title">
-            공지 사항
-        </div>
-
-        <!-- 가져온 데이터 사용 -->
-        {% for notice in notices %}
+        <h2>공지 사항</h2>
         <div class="notice-content">
-            {{ notice.title }}
+            {% if notices %}
+                <ul>
+                    {% for notice in notices %}
+                        <li>{{ notice.title }}: {{ notice.content }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>공지사항이 없습니다.</p>
+            {% endif %}
         </div>
-        {% endfor %}
     </div>
 
     <script>
         function sendMessage() {
-                var user_input = document.getElementById('user-input').value;
-                document.getElementById('user-input').value = '';
+            let user_input = document.getElementById('user-input').value;
+            document.getElementById('user-input').value = '';
 
-                var chat_display = document.getElementById('chat-display');
-                chat_display.innerHTML += '<p class="user-message">사용자: ' + user_input + '</p>';
+            let chat_display = document.getElementById('chat-display');
+            chat_display.innerHTML += '<p class="user-message">사용자: ' + user_input + '</p>';
 
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', ' ', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText).response;
-                            chat_display.innerHTML += '<p class="chatbot-message">챗봇: ' + response + '</p>';
-                        } else {
-                            console.error('서버 응답 오류:', xhr.status);
-                        }
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', ' ', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        let response = JSON.parse(xhr.responseText).response;
+                        chat_display.innerHTML += '<p class="chatbot-message">챗봇: ' + response + '</p>';
+                    } else {
+                        console.error('서버 응답 오류:', xhr.status);
                     }
-                };
+                }
+            };
 
-                xhr.send('user_input=' + encodeURIComponent(user_input));
-            }
+            xhr.send('user_input=' + encodeURIComponent(user_input));
+        }
 
         // Enter 키 이벤트 처리
-        document.getElementById('user-input').addEventListener('keyup', function(event) {
+        document.getElementById('user-input').addEventListener('keyup', function (event) {
             if (event.key === 'Enter') {
                 sendMessage();
             }
         });
 
-         // 마우스 호버 이벤트 처리
+        // 마우스 호버 이벤트 처리
         function showNotice() {
-            var noticePart = document.querySelector('.notice-panel');
+            let noticePart = document.querySelector('.notice-panel');
             noticePart.style.bottom = '0';
         }
 
         // 마우스 아웃 이벤트 처리
         function hideNotice() {
-            var noticePart = document.querySelector('.notice-panel');
+            let noticePart = document.querySelector('.notice-panel');
             noticePart.style.bottom = '-40%';
         }
-
     </script>
 </body>
 
