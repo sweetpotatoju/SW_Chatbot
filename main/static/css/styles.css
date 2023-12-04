@@ -1,0 +1,131 @@
+
+body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            margin: 0;
+            background-color: #f2f2f2;
+            overflow-y: auto;
+        }
+
+.logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+.text {
+            width: 50%;
+            height: 30px;
+            position: absolute;
+            font-size: 30px;
+            top: 0;
+            left: 40%;
+        }
+
+.admin {
+            position: absolute;
+            bottom: 6%;
+            right: 0;
+            font-size: 20px;
+        }
+
+/* 채팅 화면 */
+#chat-container {
+            position: absolute;
+            width: 85%;
+            height: 100%;
+            right: 0;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+#chat-display {
+            width: calc(100% - 40px);
+            padding: 20px;
+            height: 80%;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+/* 사용자 입력 칸 */
+#user-input {
+            position: absolute;
+            width: 90%;
+            height: 50px;
+            padding: 5px;
+            font-size: 20px;
+            border: 0 solid #ddd;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            outline: none;
+        }
+
+button {
+            position: absolute;
+            height: 62px;
+            width: 10%;
+            right: 0;
+            background-color: #61678c;
+            color: #fff;
+            border: none;
+            border-top: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+button:hover {
+            background-color: #000000;
+        }
+
+.input-container input[type="text"] {
+            width: 700px;
+            height: 50px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+/* 사이드바 */
+.sidebar {
+            width: 15%;
+            height: 100%;
+            top: 5%;
+            background-color: #61678c;
+            border-radius: 10px;
+            padding-top: 20px;
+            position: absolute;
+        }
+
+.sidebar a:hover {
+            color: #fff;
+        }
+
+.notice-title {
+            font-size: 30px;
+            padding: 5px;
+        }
+
+.notice-title:hover {
+            color: #fff;
+        }
+
+/* 공지사항 부분 */
+.notice-panel {
+            position: fixed;
+            width: 100%;
+            height: 40%;
+            bottom: -40%;
+            left: 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            padding: 20px;
+            transition: bottom 0.5s ease;
+        }
+
+.notice-content {
+            font-size: 20px;
+            padding: 5px;
+            color: black;
+        }

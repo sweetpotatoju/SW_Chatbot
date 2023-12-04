@@ -25,6 +25,3 @@ class QATable(models.Model):
 
     def __str__(self):
         return self.a
-
-
-

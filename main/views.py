@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .chatbot_logic import get_chatbot_response
+from chatbotAdmin.models import Notice
 
 @csrf_exempt
 def chatbot_view(request):
@@ -23,3 +24,7 @@ def chatbot_view(request):
             return JsonResponse({'error': str(e)}, status=400)
 
     return render(request, 'userpage/userpage.html')
+
+def notice_view(request):
+    notices = Notice.objects.all()
+    return render(request, 'userpage/userpage.html', {'notices': notices})
