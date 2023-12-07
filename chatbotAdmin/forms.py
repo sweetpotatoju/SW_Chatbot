@@ -21,3 +21,4 @@ class QATableForm(forms.ModelForm):
 
         # Question 필드를 새로운 QuerySet으로 업데이트
         self.fields['q'].queryset = unused_questions
+
