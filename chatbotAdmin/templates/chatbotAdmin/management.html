@@ -20,83 +20,69 @@
           width: 100%;
           background-color: #f2f2f2;
       }
+
       .el-submenu .el-menu-item{
-        color: #fff !important;
-      }
-      .el-submenu .el-menu-item:hover{
-        background-color: #fff !important;
         color: black !important;
       }
+
+      .el-submenu .el-menu-item:hover{
+        background-color: #8c8c8c !important;
+        color: black !important;
+      }
+
       .top_box{
         width: 100%;
-        height: 80px;
-        background-color: #fff;
-        padding: 10px 0 10px 20px;
+        height: 56px;
+        background-color: #8c8c8c;
+        padding: 10px 0 10px 10px;
         box-sizing: border-box;
-        /* border: 1px solid #ccc; */
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 30px;
       }
 
       .externhtml {
-        width: 90%;
-          height: 80%;
-        padding: 20px;
+        width: 100%;
+        height: 100%;
         box-sizing: border-box;
       }
 
+      .main{
+          width: 100%;
+          height: 100%;
+      }
+
     </style>
-  </head>
-  <body>
-    <div id="app" class="container">
-      <div class="sidebar">
+</head>
+<body>
+<div id="app" class="container">
+    <div class="sidebar">
         <el-container>
-            <el-aside width="200px" style="background-color: black;height: 100vh;">
-              <el-menu
-                :default-active="activeMenuItem"
-                @select="handleMenuSelect"
-                class="el-menu-vertical-demo">
-
+            <el-aside width="200px" style="background-color: #5e5e5e; height: 100vh;">
+                <el-menu :default-active="activeMenuItem" @select="handleMenuSelect" class="el-menu-vertical-demo">
                 <el-submenu index="1">
-                  <template slot="title"
-                    ><i class="el-icon-location"></i>관리자</template>
-                  <el-menu-item index="1-1">
-                      <a @click.prevent="loadExternalContent('{% url 'add_notice' %}', 'externhtml')">공지 추가</a>
-                  </el-menu-item>
-
-                  <el-menu-item index="1-2">
-                      <a @click.prevent="loadExternalContent('{% url 'add_question_answer' %}', 'externhtml')">질문 답변</a>
-                  </el-menu-item>
-
-                  <el-menu-item index="1-3">
-                      <a @click.prevent="loadExternalContent('{% url 'chatbot_db_management' %}', 'externhtml')">챗봇 DB 관리</a>
-                  </el-menu-item>
+                    <template slot="title"><i class="el-icon-location"></i>관리자</template>
+                    <el-menu-item index="1-1">
+                        <a @click.prevent="loadExternalContent('{% url 'add_notice' %}', externhtml)">공지 추가</a>
+                    </el-menu-item>
+                    <el-menu-item index="1-2">
+                        <a @click.prevent="loadExternalContent('{% url 'add_question_answer' %}', 'externhtml')">질문 답변</a>
+                    </el-menu-item>
+                    <el-menu-item index="1-3">
+                        <a @click.prevent="loadExternalContent('{% url 'chatbot_db_management' %}', 'externhtml')">챗봇 DB 관리</a>
+                    </el-menu-item>
                 </el-submenu>
-
-              </el-menu>
+                </el-menu>
             </el-aside>
         </el-container>
-
     </div>
+        <div class="main">
+            <div class="top_box">
+                <div style="font : 30px white">관리자 페이지</div>
+            </div>
 
-      <!-- 右侧内容区域 -->
-
-      <div class="content">
-        <div class="top_box">
-            <h3>관리자 페이지</h3>
-
-            <div class="externhtml">
-
+            <div class="content">
+                <div class="externhtml"></div>
+                <div id="add-notice"></div>
             </div>
         </div>
-
-      </div>
-    </div>
-
-    <div class="content">
-      <!-- "add_notice" 영역에 내용을 표시할 곳 -->
-      <div id="add-notice"></div>
     </div>
 
     <script src="https://unpkg.com/element-ui@2.15.14/lib/index.js"></script>
@@ -113,21 +99,29 @@
                 selectedRows: [],
             },
             methods: {
-                loadExternalContent(url, targetClass) {
+                async loadExternalContent(url, targetClass) {
                     try {
-                        fetch(url)
-                            .then(response => response.text())
-                            .then(html => {
-                                document.querySelector(`.${targetClass}`).innerHTML = html;
-                            })
-                            .catch(error => {
-                                console.error("Error loading external content:", error);
-                            });
-                    } catch (error) {
-                        console.error("Error loading external content:", error);
-                    }
-                },
+                        const response = await fetch(url);
+                        const html = await response.text();
 
+                        // 화면에 불러온 HTML을 적용할 대상 엘리먼트를 찾음
+                        const targetElement = document.querySelector(`.${targetClass}`);
+                        if (targetElement) {
+                            // targetElement의 innerHTML로 불러온 HTML을 주입
+                            targetElement.innerHTML = html;
+
+                            // 주입된 HTML 내의 script 태그를 찾아서 실행
+                            const scriptElements = targetElement.querySelectorAll('script');
+                            scriptElements.forEach(script => {
+                                const newScript = document.createElement('script');
+                                newScript.innerHTML = script.innerHTML;
+                                script.parentNode.replaceChild(newScript, script);
+                            });
+                        }
+        } catch (error) {
+            console.error("Error loading external content:", error);
+        }
+    },
                 changeTableData(dataName) {
                     console.log(dataName);
                     if (dataName === "data1") {
@@ -153,9 +147,16 @@
                     }
                 },
                 handleMenuSelect(index) {
-                    // 菜单选择处理
                     this.activeMenu = index;
-                    console.log("Menu selected:", index);
+                    if (index=='1-1'){
+                        this.loadExternalContent('{% url 'add_notice' %}', 'externhtml');
+                    }
+                    else if (index=="1-2"){
+                        this.loadExternalContent('{% url 'add_question_answer' %}', 'externhtml');
+                    }
+                    else if (index=="1-3"){
+                        this.loadExternalContent('{% url 'chatbot_db_management' %}', 'externhtml');
+                    }
                 },
 
                 handleSelectionChange(val) {
