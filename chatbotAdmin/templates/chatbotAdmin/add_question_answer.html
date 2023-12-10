@@ -1,102 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>챗봇 질문 답변 추가</title>
+        <style>
 
-<head>
-    <meta charset="UTF-8">
-    <title>챗봇 질문 답변 추가</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        form {
-            margin: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"],
-        .cancel-button {
-            width: 45%;
-            padding: 10px;
-            color: #fff;
-            text-decoration: none;
-            border: 1px solid #999;
-            border-radius: 5px;
-            box-sizing: border-box;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            display: inline-block;
-            line-height: 1; /* 텍스트 수직 가운데 정렬 */
-        }
-
-        input[type="submit"] {
-            background-color: #888;
-        }
-
-        input:hover{
-            background-color: #61678c;
-            text-align: center;
-
-        }
-
-        .cancel-button {
-            background-color: #888;
-            text-align: center;
-        }
-
-        .cancel-button:hover{
-            background-color: #61678c;
-            text-align: center;
-
-        }
-
-        button:hover {
-            background-color: #61678c;
-            font: 15px white;
-            cursor : pointer;
-        }
-
-    </style>
-</head>
-
-<body>
-    <form method="post">
-        {% csrf_token %}
-        <label for="{{ form.q.id_for_label }}">Question Content:</label>
-        {{ form.q }}
-
-        <br>
-        <label for="{{ form.a.id_for_label }}">Answer Content:</label>
-        {{ form.a }}
-        <br>
-        <input type="submit" value="추가" onclick="showCustomPopup('추가');">
-        <a href="{% url 'management' %}" class="cancel-button" onclick="showCustomPopup('뒤로가기');">뒤로가기</a>
-    </form>
-
-    <script>
-        function showCustomPopup(action) {
-            var result = confirm('정말로 ' + action + '하시겠습니까?');
-            if (!result) {
-                event.preventDefault();
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                height: 100vh;
             }
-        }
-    </script>
-</body>
+
+            form {
+                margin: 20px;
+                font-size: 15px;
+                width:1200px;
+                height: 500px;
+                text-align: left; /* Center the content inside the form */
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+
+            input[type="text"],
+            textarea {
+                width: 70%;
+                padding: 10px;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                background-color: #888;
+            }
+
+            input:hover{
+                background-color: #61678c;
+                text-align: center;
+
+            }
+
+            .cancel-button {
+                display: inline-block;
+                padding: 10px;
+                color: #fff;
+                text-decoration: none;
+                border: 1px solid #999;
+                border-radius: 5px;
+                box-sizing: border-box; /* Include padding and border in the width */
+                margin-right: 10px; /* Add a margin between the buttons */
+                margin-bottom: 10px; /* Add margin at the bottom of the buttons */
+                right: 0;
+                background-color: #8A9097;
+                width: 35%;
+                height: 50px;
+                text-align: center;
+                font-size: 20px;
+            }
+
+            .cancel-button:hover{
+                background-color: #61678c;
+                text-align: center;
+
+            }
+
+            button:hover {
+                background-color: #61678c;
+                font: 15px white;
+                cursor : pointer;
+            }
+
+            .question_part{
+                width: 100%;
+
+            }
+
+            .question_list{
+
+                font-size: 20px;
+                width: 35%;
+                height: 30px;
+            }
+
+            .answer_part{
+                margin-top: 5%;
+                border: 10px #61678c;
+                border-radius: 5px;
+            }
+
+            .answer_content{
+                font-size: 20px;
+            }
+
+            .add{
+                display: inline-block;
+                padding: 10px;
+                color: #fff;
+                text-decoration: none;
+                border: 1px solid #999;
+                border-radius: 5px;
+                box-sizing: border-box; /* Include padding and border in the width */
+                margin-right: 10px; /* Add a margin between the buttons */
+                margin-bottom: 10px; /* Add margin at the bottom of the buttons */
+                right: 0;
+                background-color: #8A9097;
+                width: 35%;
+                height: 50px;
+                text-align: center;
+                font-size: 20px;
+            }
+
+            .btn-part{
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            <div class="question_part">
+            <label class="question_list" for="{{ form.q.id_for_label }}">등록된 질문들</label>
+                {{ form.q }}
+                <br>
+            </div>
+
+            <div class="answer_part">
+                <label class="answer_content" for="{{ form.a.id_for_label }}">답변 내용 작성</label>
+                    {{ form.a }}
+                    <br>
+            </div>
+
+            <div class="btn-part">
+                <button class="add" type="submit" value="추가" onclick="showCustomPopup('추가');">추가</button>
+                <a href="{% url 'management' %}" class="cancel-button" onclick="showCustomPopup('뒤로가기');">뒤로가기</a>
+            </div>
+        </form>
+
+        <script>
+            function showCustomPopup(action) {
+                const result = confirm('정말로 ' + '"' + action + '"' + ' 하시겠습니까?');
+                if (!result) {
+                    event.preventDefault();
+                }
+            }
+        </script>
+    </body>
 
 </html>
