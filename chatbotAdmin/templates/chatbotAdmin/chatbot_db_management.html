@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="form-container">
-        <form method="post" class="category">
+        <form method="post" class="category" action="{% url 'chatbot_db_management' %}">
             {% csrf_token %}
             <select name="db_type" style="font-size: 15px; width: 80%; text-align: center">
                 <option value="공지">공지</option>

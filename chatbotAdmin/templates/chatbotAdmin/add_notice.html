@@ -103,7 +103,7 @@
 
 <body>
     <div>
-    <form method="post" action="">
+    <form method="post" action="{% url 'add_notice' %}">
         {% csrf_token %}
         <div class="title"><h2>공지 추가</h2></div>
 
