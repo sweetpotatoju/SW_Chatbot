@@ -19,6 +19,8 @@ def chatbot_view(request):
 
             return JsonResponse({'response': response})
 
+
+
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 

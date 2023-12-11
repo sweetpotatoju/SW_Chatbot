@@ -6,7 +6,7 @@ class Question(models.Model):
         ('Y', 'Answered'),
     ]
     question_text = models.CharField(max_length=200)
-    password = models.CharField(max_length=8)
+    password = models.CharField(max_length=4)
     answer_status = models.CharField(max_length=1, choices=ANSWER_STATUS_CHOICES, default='N')
 
     def __str__(self):
