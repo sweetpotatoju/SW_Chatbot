@@ -46,9 +46,15 @@
         <h2>공지 사항</h2>
         <div class="notice-content">
             {% if notices %}
-                <ul>
+                <ul class="notice-list">
                     {% for notice in notices %}
-                        <li>{{ notice.title }}: {{ notice.content }}</li>
+                        <li>
+                            <div class="notice-item">
+                                <div class="notice-title">{{ notice.title }}</div>
+                                <div class=".content">{{ notice.content }}</div>
+                            </div>
+                            <p>             </p>
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}

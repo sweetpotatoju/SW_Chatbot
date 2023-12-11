@@ -8,6 +8,7 @@ from chatbotAdmin.models import Notice
 
 @csrf_exempt
 def chatbot_view(request):
+    notices = Notice.objects.all().order_by('created_at')  # (원하는 개수로 수정 가능)
     if request.method == 'POST':
         try:
             user_input = request.POST.get('user_input')
@@ -23,8 +24,11 @@ def chatbot_view(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
 
-    return render(request, 'userpage/userpage.html')
-
-def notice_view(request):
-    notices = Notice.objects.all()
     return render(request, 'userpage/userpage.html', {'notices': notices})
+
+#
+# def userpage(request):
+#     notices = Notice.objects.all().order_by('created_at')  # (원하는 개수로 수정 가능)
+#     return render(request, 'userpage/userpage.html', {'notices': notices})
+
+
