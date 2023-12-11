@@ -101,7 +101,7 @@ button:hover {
         }
 
 .notice-title {
-            font-size: 30px;
+            font-size: 22px;
             padding: 5px;
         }
 
@@ -128,4 +128,16 @@ button:hover {
             font-size: 20px;
             padding: 5px;
             color: black;
+            margin-top: 10px;
+        }
+.notice-item {
+
+        margin-bottom: 20px; /* 여기서 간격 조절 */
+
+    }
+.content {
+            font-size: 20px;
+            padding: 5px;
+            color: black;
+            margin-top: 10px;
         }
