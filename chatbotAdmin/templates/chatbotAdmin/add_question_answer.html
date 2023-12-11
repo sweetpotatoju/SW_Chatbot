@@ -121,7 +121,7 @@
     </head>
 
     <body>
-        <form method="post">
+        <form method="post" action="{% url 'add_question_answer' %}">
             {% csrf_token %}
             <div class="question_part">
             <label class="question_list" for="{{ form.q.id_for_label }}">등록된 질문들</label>
