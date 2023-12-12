@@ -32,7 +32,7 @@ def add_notice(request):
             notice = form.save(commit=False)
             # created_at은 자동으로 현재 시간으로 설정됩니다.
             notice.save()
-            return redirect('add_notice')
+            return redirect('management')
         else:
             print(form.errors)
         form = NoticeForm()
@@ -52,7 +52,7 @@ def add_question_answer(request):
 
             instance.save()
 
-            return redirect('add_question_answer')  # 저장 후 폼 초기화
+            return redirect('management')  # 저장 후 폼 초기화
     else:
         form = QATableForm()
 
